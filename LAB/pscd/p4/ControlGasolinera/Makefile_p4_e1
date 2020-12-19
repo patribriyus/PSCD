@@ -1,0 +1,41 @@
+#*****************************************************************
+# File:   Makefile
+# Author: PSCD-Unizar
+# Date:   octubre 2017
+# Coms:   Ejemplo de Makefile
+#         Ejecutar 'make' para compilar (o 'make -f Makefile')
+#         Ejecutar 'make' clean para limpiar (borrar lo que genere)
+#*****************************************************************
+
+#---------------------------------------------------------
+# macros
+RM = /bin/rm -f  # para limpiar
+CC = g++         # para compilar
+#---------------------------------------------------------
+# para compilación y enlazado ("linkado")
+CPPFLAGS=-I. -I${LOG} -std=c++11 -fmax-errors=1 -D DEBUG_MODE=true # opciones compilación # opciones compilación
+LDFLAGS=-pthread            # opciones de "linkado"
+#---------------------------------------------------------
+# vars
+EJEC = main_p4_e1
+CG = ControlGasolinera
+LOG = ../Logger
+
+all: ${EJEC} #lo que se generará al ejecutar "make"
+#---------------------------------------------------------
+# "linkar" y generar ejecutable.
+${EJEC}: ${EJEC}.o ${CG}.o ${LOG}/Logger.o
+	${CC} ${EJEC}.o ${CG}.o ${LOG}/Logger.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
+#---------------------------------------------------------
+${EJEC}.o: ${EJEC}.cpp ${CG}.hpp ${LOG}/Logger.hpp
+	${CC} -c ${EJEC}.cpp ${CPPFLAGS}
+#---------------------------------------------------------
+${CG}.o: ${CG}.cpp ${CG}.hpp ${LOG}/Logger.hpp
+	${CC} -c ${CG}.cpp ${CPPFLAGS}
+#---------------------------------------------------------
+${LOG}/Logger.o: ${LOG}/Logger.cpp ${LOG}/Logger.hpp
+	${CC} -c ${LOG}/Logger.cpp -o ${LOG}/Logger.o ${CPPFLAGS}
+#---------------------------------------------------------
+# Cuidado con lo que se pone aquí, que se borra sin preguntar
+clean:
+	$(RM) ${CG}.o ${LOG}/Logger.o ${EJEC}.o ${EJEC}

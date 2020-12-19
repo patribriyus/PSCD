@@ -1,0 +1,46 @@
+#*****************************************************************
+# File:   Makefile_p3_e1
+# Author: PSCD-Unizar
+# Date:   octubre 2017
+# Coms:   Ejemplo de Makefile para la práctica 3 de PSCD
+#         Ejecutar 'make Makefile_p3_e1' para generar el ejecutable
+#         Ejecutar 'make Makefile_p3_e1' clean para limpiar (borrar lo que genere)
+#         Añadir todo lo que sea necesario
+#*****************************************************************
+
+#---------------------------------------------------------
+# macros
+RM = /bin/rm -f  # para limpiar
+CC = g++         # para compilar
+#---------------------------------------------------------
+# vars
+EJEC = main_p3_e1
+BQ = ../BoundedQueue
+CBQ = ConcurrentBoundedQueue
+SEM = ../Semaphore_V2
+LOG = ../Logger
+#---------------------------------------------------------
+# para compilación y enlazado ("linkado")
+CPPFLAGS=-I. -I${BQ} -I${SEM} -I${LOG} -std=c++11 -fmax-errors=1 -D DEBUG_MODE=true # opciones compilación
+LDFLAGS=-pthread            # opciones de "linkado"
+#---------------------------------------------------------
+
+all: ${EJEC} #lo que se generará al ejecutar "make"
+#---------------------------------------------------------
+# "linkar" y generar ejecutable. Indicamos que "main_p2_e1" requiere tanto "main_p2_e1.o" como "otroFuente.o"
+${EJEC}: ${EJEC}.o ${SEM}/Semaphore_V2.o ${LOG}/Logger.o
+	${CC} ${EJEC}.o ${SEM}/Semaphore_V2.o ${LOG}/Logger.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
+#---------------------------------------------------------
+${EJEC}.o: ${EJEC}.cpp ${BQ}/BoundedQueue.hpp ${BQ}/BoundedQueue.cpp  ${CBQ}.hpp ${CBQ}.cpp
+	${CC} -c ${EJEC}.cpp ${CPPFLAGS}
+#---------------------------------------------------------
+${SEM}/Semaphore_V2.o: ${SEM}/Semaphore_V2.cpp ${SEM}/Semaphore_V2.hpp 
+	${CC} -c ${SEM}/Semaphore_V2.cpp -o ${SEM}/Semaphore_V2.o ${CPPFLAGS}
+#---------------------------------------------------------
+${LOG}/Logger.o: ${LOG}/Logger.cpp ${LOG}/Logger.hpp 
+	${CC} -c ${LOG}/Logger.cpp -o ${LOG}/Logger.o ${CPPFLAGS}
+
+#---------------------------------------------------------
+# Cuidado con lo que se pone aquí, que se borra sin preguntar
+clean:
+	$(RM) ${EJEC}.o ${LOG}/Logger.o ${SEM}/Semaphore_V2.o ${EJEC} 

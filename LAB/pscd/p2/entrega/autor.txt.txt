@@ -1,0 +1,16 @@
+735576 Briones Yus, Patricia
+
+Dificultades: en el ejercicio 1, como saber cuando habían terminado todos los procesos y como guardar el valor de suma para que no se modificase con los otros procesos.
+En el ejercicio 2, como implementar la intrucción atómica del tipo set-and-set.
+
+En el ejercicio 1, sin usar instrucciones atómicas, hay que añadir una segunda función subMatriz que llame a la función addsubMatriz, y una vez haya acabado esta, anotar en un vector booleano que ha acabado, y el proceso informador tiene que estar en una espera activa hasta que todos los procesos hayan terminado. Al contrario, en el ejercicio 2, al usar instrucciones atómicas no es necesario el proceso de informador, ya que se ejecuta solo un proceso a la vez, y una vez acabados todos, se informa de la media global.
+
+Ejercicio 1:
+- main_p2_e1.cpp
+- Makefile_p2_e1
+make -f Makefile_p2_e1
+
+Ejercicio 2:
+- main_p2_e2.cpp
+- Makefile_p2_e2
+make -f Makefile_p2_e2

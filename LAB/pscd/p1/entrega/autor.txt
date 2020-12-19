@@ -1,0 +1,20 @@
+735576 Briones Yus, Patricia
+
+Una de las principales dificultades fue crear un número aleatorio con decimales y crear el mensaje de cada thread de una forma eficiente.
+
+Ejercicio 1:
+Se crean varios threads los cuales contienen un mensaje, un retardo y un número de repeticiones. "chrono::milliseconds()" como la propia palabra indica, cronometra en milisegundos el valor indicado que se ponga entre paréntesis. "this_thread::sleep_for()" no ejecuta el thread durante el tiempo indicado entre paréntesis. Y estos se repiten el número de repeticiones indicado en ese thread.
+
+Ejercicio 2:
+- ejercicio_2.cpp
+g++ -std=c++11 -pthread ejercicio_2.cpp -o ejercicio_2
+
+Ejercicio 3:
+- Saludador.hpp
+- Saludador.cpp
+- ejercicio_3.cpp
+g++ -std=c++11 -pthread ejercicio_3.cpp Saludador.cpp -o ejercicio_3
+
+Ejercicio 4:
+- ejercicio_4.cpp
+g++ -std=c++11 -pthread ejercicio_4.cpp -o ejercicio_4

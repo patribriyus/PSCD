@@ -1,0 +1,34 @@
+#*****************************************************************
+# File:   Makefile_p2_e2
+# Author: Patricia Briones Yus
+# Date:   octubre 2018
+# Coms:   Compilacion
+#		make -f Makefile_p2_e2
+#*****************************************************************
+
+#---------------------------------------------------------
+# macros
+RM = /bin/rm -f  # para limpiar
+CC = g++         # para compilar
+#---------------------------------------------------------
+# para compilacion y enlazado ("linkado")
+CPPFLAGS=-I. -std=c++11     # opciones compilaci√≥n
+LDFLAGS=-pthread            # opciones de "linkado"
+#---------------------------------------------------------
+# vars
+EJEC = main_p2_e2
+
+all: ${EJEC} #lo que se generara al ejecutar "make"
+#---------------------------------------------------------
+# "linkar" y generar ejecutable. Indicamos que "main_p2_e2" requiere "main_p2_e2.o"
+${EJEC}: ${EJEC}.o
+	${CC} ${EJEC}.o -o ${EJEC} ${CPPFLAGS} ${LDFLAGS}
+
+#---------------------------------------------------------
+# compilar: generara "main_p2_e2.o". Indicamos que depende de "main_p2_e2.cpp"
+${EJEC}.o: ${EJEC}.cpp
+	${CC} -c ${EJEC}.cpp ${CPPFLAGS}
+#---------------------------------------------------------
+# Cuidado con lo que se pone aqui≠, que se borra sin preguntar
+clean:
+	$(RM) ${EJEC}.o ${EJEC}
